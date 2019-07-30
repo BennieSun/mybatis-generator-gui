@@ -180,7 +180,7 @@ public class CustomAbstractXmlElementGenerator extends AbstractXmlElementGenerat
             sbUdgment.setLength(0);
             sbUdgment.append("null != ");
             sbUdgment.append(columnsList.get(i).getJavaProperty());
-            sbUdgment.append("&& '' != ");
+            sbUdgment.append(" and '' != ");
             sbUdgment.append(columnsList.get(i).getJavaProperty());
             updateNotNullElement.addAttribute(new Attribute("test", sbUdgment.toString()));
 
