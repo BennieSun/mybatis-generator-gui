@@ -67,6 +67,7 @@ public class MybatisGeneratorBridge {
 	    configuration.addClasspathEntry(connectorLibPath);
         // Table configuration
         TableConfiguration tableConfig = new TableConfiguration(context);
+
         tableConfig.setTableName(generatorConfig.getTableName());
         tableConfig.setDomainObjectName(generatorConfig.getDomainObjectName());
         if(!generatorConfig.isUseExample()) {
@@ -242,6 +243,36 @@ public class MybatisGeneratorBridge {
 				pluginConfiguration.addProperty("useExample", String.valueOf(generatorConfig.isUseExample()));
 				pluginConfiguration.addProperty("type", "com.zzg.mybatis.generator.plugins.CommonDAOInterfacePlugin");
                 pluginConfiguration.setConfigurationType("com.zzg.mybatis.generator.plugins.CommonDAOInterfacePlugin");
+                context.addPluginConfiguration(pluginConfiguration);
+            }
+        }
+
+        /**
+         * 自定义 select、update、findAll、find
+         */
+        if (generatorConfig.isCustomPlugin()) {
+            //一下为默认设置
+            //        this.insertStatementEnabled = true;
+            //        this.selectByPrimaryKeyStatementEnabled = true;
+            //        this.selectByExampleStatementEnabled = true;
+            //        this.updateByPrimaryKeyStatementEnabled = true;
+            //        this.deleteByPrimaryKeyStatementEnabled = true;
+            //        this.deleteByExampleStatementEnabled = true;
+            //        this.countByExampleStatementEnabled = true;
+            //        this.updateByExampleStatementEnabled = true;
+
+            /**关闭自动生成insert、select、update，原因默认不是用的mybatis自动生成的名字 start**/
+            tableConfig.setInsertStatementEnabled(false);
+            tableConfig.setSelectByPrimaryKeyStatementEnabled(false);
+            tableConfig.setUpdateByPrimaryKeyStatementEnabled(false);
+            /**关闭自动生成insert、select、update，原因默认不是用的mybatis自动生成的名字 end**/
+
+            if (DbType.MySQL.name().equals(dbType) || DbType.MySQL_8.name().equals(dbType)
+                    || DbType.PostgreSQL.name().equals(dbType)) {
+                PluginConfiguration pluginConfiguration = new PluginConfiguration();
+                pluginConfiguration.addProperty("useExample", String.valueOf(generatorConfig.isCustomPlugin()));
+                pluginConfiguration.addProperty("type", "com.zzg.mybatis.generator.adapter.CustomPlugin");
+                pluginConfiguration.setConfigurationType("com.zzg.mybatis.generator.adapter.CustomPlugin");
                 context.addPluginConfiguration(pluginConfiguration);
             }
         }

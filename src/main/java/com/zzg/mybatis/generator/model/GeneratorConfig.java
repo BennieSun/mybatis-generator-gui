@@ -66,6 +66,8 @@ public class GeneratorConfig {
 
     private boolean jsr310Support;
 
+    private boolean customPlugin;
+
     public boolean isJsr310Support() {
         return jsr310Support;
     }
@@ -284,5 +286,13 @@ public class GeneratorConfig {
 
 	public boolean isUseDAOExtendStyle() {
 		return useDAOExtendStyle;
+	}
+
+	public boolean isCustomPlugin() {
+		return customPlugin;
+	}
+
+	public void setCustomPlugin(boolean customPlugin) {
+		this.customPlugin = customPlugin;
 	}
 }

@@ -99,6 +99,8 @@ public class MainUIController extends BaseFXController {
     @FXML
     private CheckBox jsr310Support;
     @FXML
+    private CheckBox customPlugin;
+    @FXML
     private TreeView<String> leftDBTree;
     // Current selected databaseConfig
     private DatabaseConfig selectedDatabaseConfig;
@@ -209,7 +211,7 @@ public class MainUIController extends BaseFXController {
                         this.tableName = tableName;
                         tableNameField.setText(tableName);
                         domainObjectNameField.setText(MyStringUtils.dbStringToCamelStyle(tableName));
-                        mapperName.setText(domainObjectNameField.getText().concat("DAO"));
+                        mapperName.setText(domainObjectNameField.getText().concat("Mapper"));
                     }
                 }
             });
@@ -395,6 +397,7 @@ public class MainUIController extends BaseFXController {
         generatorConfig.setUseDAOExtendStyle(useDAOExtendStyle.isSelected());
         generatorConfig.setUseSchemaPrefix(useSchemaPrefix.isSelected());
         generatorConfig.setJsr310Support(jsr310Support.isSelected());
+        generatorConfig.setCustomPlugin(customPlugin.isSelected());
         return generatorConfig;
     }
 
@@ -424,6 +427,7 @@ public class MainUIController extends BaseFXController {
         useDAOExtendStyle.setSelected(generatorConfig.isUseDAOExtendStyle());
         useSchemaPrefix.setSelected(generatorConfig.isUseSchemaPrefix());
         jsr310Support.setSelected(generatorConfig.isJsr310Support());
+        customPlugin.setSelected(generatorConfig.isCustomPlugin());
 
     }
 
